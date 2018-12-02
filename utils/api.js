@@ -9,7 +9,8 @@ const xml2js = require('xml2js');
 function getStations() {
   return new Promise((resolve, reject) => {
     request
-      .get("http://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML")
+      .get('http://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML')
+      .withCredentials()
       .then((res) => {
         xml2js.parseString(res.text, (err, result) => {
           if (err) {
@@ -32,8 +33,8 @@ function getTrainsToStation(stationCode, timeSpan) {
   return new Promise((resolve, reject) => {
     request
       .get(
-        `http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByCodeXML_WithNumMins?StationCode=${stationCode}&NumMins=${timeSpan}`
-      )
+        `http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByCodeXML_WithNumMins?StationCode=${stationCode}&NumMins=${timeSpan}`)
+      .withCredentials()
       .then((res) => {
         xml2js.parseString(res.text, (err, result) => {
           if (err) {
